@@ -9,6 +9,7 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 
 import ProtectedRoute from "../components/ProtectedRoute";
+import Activities from "../pages/Activities";
 
 function AppRouter() {
 
@@ -36,6 +37,14 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
+        <Route
+  path="/activities"
+  element={
+    <ProtectedRoute>
+      <Activities />
+    </ProtectedRoute>
+  }
+/>
 
       </Routes>
 

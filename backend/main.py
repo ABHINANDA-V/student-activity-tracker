@@ -2,7 +2,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-
+from collections import Counter
 from database import SessionLocal, engine
 import models
 import schemas
@@ -119,3 +119,63 @@ def get_activities(db: Session = Depends(get_db)):
     activities = db.query(models.Activity).all()
 
     return activities
+
+# Delete activity
+@app.delete("/activities/{activity_id}")
+def delete_activity(
+    activity_id: int,
+    db: Session = Depends(get_db)
+):
+
+    activity = db.query(models.Activity).filter(
+        models.Activity.id == activity_id
+    ).first()
+
+    if not activity:
+        raise HTTPException(
+            status_code=404,
+            detail="Activity not found"
+        )
+
+    db.delete(activity)
+    db.commit()
+
+    return {
+        "message": "Activity deleted successfully"
+    }
+
+# Summary API
+@app.get("/summary")
+def get_summary(
+    db: Session = Depends(get_db)
+):
+
+    activities = db.query(
+        models.Activity
+    ).all()
+
+    total_entries = len(activities)
+
+    total_hours = sum(
+        item.hours for item in activities
+    )
+
+    if activities:
+
+        names = [
+            item.name for item in activities
+        ]
+
+        most_active_user = Counter(
+            names
+        ).most_common(1)[0][0]
+
+    else:
+
+        most_active_user = "None"
+
+    return {
+        "total_entries": total_entries,
+        "total_hours": total_hours,
+        "most_active_user": most_active_user
+    }
