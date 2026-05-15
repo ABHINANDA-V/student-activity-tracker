@@ -1,8 +1,7 @@
-function Dashboard() {
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+function Dashboard() {
 
   return (
 
@@ -10,45 +9,53 @@ function Dashboard() {
 
       <div className="flex">
 
-        {/* Sidebar */}
-
-        <div className="w-64 bg-gray-900 text-white min-h-screen p-5 hidden md:block">
-
-          <h1 className="text-2xl font-bold mb-10">
-            Tracker
-          </h1>
-
-          <ul className="space-y-4">
-
-            <li className="hover:text-blue-400 cursor-pointer">
-              Dashboard
-            </li>
-
-            <li className="hover:text-blue-400 cursor-pointer">
-              Activities
-            </li>
-
-            <li className="hover:text-red-400 cursor-pointer">
-              Logout
-            </li>
-
-          </ul>
-
-        </div>
-
-        {/* Main Content */}
+        <Sidebar />
 
         <div className="flex-1 p-6">
 
-          <div className="bg-white rounded-2xl shadow p-5">
+          <Navbar />
 
-            <h1 className="text-3xl font-bold">
-              Welcome {user?.username}
-            </h1>
+          <div className="mt-6">
 
-            <p className="text-gray-500 mt-2">
-              Student Activity Tracker Dashboard
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+              <div className="bg-blue-600 text-white rounded-2xl p-6 shadow">
+
+                <h2 className="text-lg">
+                  Total Activities
+                </h2>
+
+                <p className="text-3xl font-bold mt-2">
+                  0
+                </p>
+
+              </div>
+
+              <div className="bg-green-600 text-white rounded-2xl p-6 shadow">
+
+                <h2 className="text-lg">
+                  Total Hours
+                </h2>
+
+                <p className="text-3xl font-bold mt-2">
+                  0
+                </p>
+
+              </div>
+
+              <div className="bg-purple-600 text-white rounded-2xl p-6 shadow">
+
+                <h2 className="text-lg">
+                  Most Active User
+                </h2>
+
+                <p className="text-2xl font-bold mt-2">
+                  None
+                </p>
+
+              </div>
+
+            </div>
 
           </div>
 
