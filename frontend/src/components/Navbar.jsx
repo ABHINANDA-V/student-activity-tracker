@@ -9,23 +9,15 @@ function Navbar() {
     <div className="bg-white rounded-2xl shadow p-5 flex justify-between items-center">
 
       <div>
-
-        <h1 className="text-2xl font-bold">
-          Dashboard
+        <h1 className="text-3xl font-bold text-blue-600">
+          Hii  {user?.username}
         </h1>
 
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-2xl">
           Welcome back
         </p>
-
       </div>
-
-      <div className="font-semibold">
-        {user?.username}
-      </div>
-
     </div>
   );
 }
-
 export default Navbar;

@@ -1,36 +1,18 @@
-import {
-  useMutation,
-  useQueryClient
-} from "@tanstack/react-query";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
-import {
-  deleteActivity
-} from "../services/api";
-
-import {
-  useState
-} from "react";
+import { deleteActivity } from "../services/api";
+import { useState } from "react";
 
 function ActivityTable({ activities }) {
 
   const queryClient = useQueryClient();
+  const [openModal, setOpenModal] = useState(false);
 
-  const [openModal, setOpenModal] =
-    useState(false);
-
-  const [selectedId, setSelectedId] =
-    useState(null);
-
-  // DELETE MUTATION
+  const [selectedId, setSelectedId] = useState(null);
 
   const mutation = useMutation({
-
     mutationFn: deleteActivity,
-
     onSuccess: () => {
-
       toast.success(
         "Activity deleted successfully"
       );
@@ -54,19 +36,13 @@ function ActivityTable({ activities }) {
     },
   });
 
-  // OPEN MODAL
-
+ 
   const handleDeleteClick = (id) => {
-
     setSelectedId(id);
-
     setOpenModal(true);
   };
 
-  // CONFIRM DELETE
-
   const confirmDelete = () => {
-
     mutation.mutate(selectedId);
   };
 
@@ -74,50 +50,37 @@ function ActivityTable({ activities }) {
 
     <div className="bg-white rounded-2xl shadow p-6 overflow-x-auto">
 
-      {/* Heading */}
-
-      <h2 className="text-2xl font-bold mb-5">
+      <h2 className="text-2xl font-bold mb-5 text-blue-500">
         Activities
       </h2>
-
-      {/* Table */}
 
       <table className="w-full border-collapse">
 
         <thead>
-
           <tr className="bg-gray-100">
-
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-blue-900">
               Student
             </th>
-
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-blue-900">
               Activity
             </th>
-
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-blue-900">
               Hours
             </th>
-
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-blue-900">
               Action
             </th>
-
           </tr>
-
         </thead>
 
         <tbody>
 
           {
             activities?.length > 0 ? (
-
               activities.map((item) => (
-
                 <tr
                   key={item.id}
-                  className="border-b"
+                  className="border-none shadow-sm"
                 >
 
                   <td className="p-4">
@@ -133,7 +96,6 @@ function ActivityTable({ activities }) {
                   </td>
 
                   <td className="p-4">
-
                     <button
                       onClick={() =>
                         handleDeleteClick(item.id)
@@ -142,7 +104,6 @@ function ActivityTable({ activities }) {
                     >
                       Delete
                     </button>
-
                   </td>
 
                 </tr>
@@ -164,11 +125,10 @@ function ActivityTable({ activities }) {
           }
 
         </tbody>
-
       </table>
 
-      {/* DELETE MODAL */}
 
+      {/*delete modal */}
       {
         openModal && (
 
@@ -176,22 +136,15 @@ function ActivityTable({ activities }) {
 
             <div className="bg-white rounded-2xl shadow-lg w-full max-w-md p-6">
 
-              {/* Title */}
-
-              <h2 className="text-2xl font-bold mb-3">
+              <h2 className="text-2xl font-bold mb-3 text-blue-500">
                 Delete Activity
               </h2>
-
-              {/* Message */}
 
               <p className="text-gray-600 mb-6">
                 Are you sure you want to delete this activity?
               </p>
 
-              {/* Buttons */}
-
               <div className="flex justify-end gap-3">
-
                 <button
                   onClick={() =>
                     setOpenModal(false)
@@ -205,19 +158,15 @@ function ActivityTable({ activities }) {
                   onClick={confirmDelete}
                   className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
                 >
-
                   {
                     mutation.isPending
                       ? "Deleting..."
                       : "Delete"
                   }
-
                 </button>
-
               </div>
 
             </div>
-
           </div>
         )
       }

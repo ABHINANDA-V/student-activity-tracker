@@ -1,46 +1,31 @@
 import { useState } from "react";
-
-import {
-  useMutation,
-  useQueryClient
-} from "@tanstack/react-query";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
-import {
-  addActivity
-} from "../services/api";
+import { addActivity } from "../services/api";
 
 function ActivityForm({ closeModal }) {
-
   const queryClient = useQueryClient();
 
-  const [formData, setFormData] =
-    useState({
-      name: "",
-      activity: "",
-      hours: "",
-    });
+  const [formData, setFormData] = useState({
+    name: "",
+    activity: "",
+    hours: "",
+  });
 
-  // Input change
+  // input change
   const handleChange = (e) => {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  // Mutation
+  // mutation
   const mutation = useMutation({
-
     mutationFn: addActivity,
 
     onSuccess: () => {
-
-      toast.success(
-        "Activity added successfully"
-      );
+      toast.success("Activity added successfully");
 
       queryClient.invalidateQueries({
         queryKey: ["activities"],
@@ -60,26 +45,16 @@ function ActivityForm({ closeModal }) {
     },
 
     onError: () => {
-
-      toast.error(
-        "Failed to add activity"
-      );
+      toast.error("Failed to add activity");
     },
   });
 
-  // Submit
+  // submit
   const handleSubmit = (e) => {
-
     e.preventDefault();
 
-    if (
-      !formData.name ||
-      !formData.activity ||
-      !formData.hours
-    ) {
-      toast.error(
-        "Please fill all fields"
-      );
+    if (!formData.name || !formData.activity || !formData.hours) {
+      toast.error("Please fill all fields");
       return;
     }
 
@@ -90,24 +65,17 @@ function ActivityForm({ closeModal }) {
   };
 
   return (
-
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4"
-    >
-
-      {/* Name */}
-
+    <form onSubmit={handleSubmit} className="space-y-4">
+     
       <input
         type="text"
         name="name"
         placeholder="Student Name"
         value={formData.name}
         onChange={handleChange}
-        className="w-full border rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full border-2 border-blue-500 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      {/* Activity */}
 
       <input
         type="text"
@@ -115,10 +83,8 @@ function ActivityForm({ closeModal }) {
         placeholder="Activity"
         value={formData.activity}
         onChange={handleChange}
-        className="w-full border rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full border-2 border-blue-500 shadow-sm rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
       />
-
-      {/* Hours */}
 
       <input
         type="number"
@@ -126,13 +92,11 @@ function ActivityForm({ closeModal }) {
         placeholder="Hours"
         value={formData.hours}
         onChange={handleChange}
-        className="w-full border rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full border-2 border-blue-500 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      {/* Buttons */}
 
       <div className="flex justify-end gap-3 pt-3">
-
         <button
           type="button"
           onClick={closeModal}
@@ -146,17 +110,9 @@ function ActivityForm({ closeModal }) {
           disabled={mutation.isPending}
           className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
         >
-
-          {
-            mutation.isPending
-              ? "Saving..."
-              : "Save Activity"
-          }
-
+          {mutation.isPending ? "Saving..." : "Save Activity"}
         </button>
-
       </div>
-
     </form>
   );
 }

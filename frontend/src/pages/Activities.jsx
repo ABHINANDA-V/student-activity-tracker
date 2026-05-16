@@ -65,7 +65,7 @@ function Activities() {
 
             {/* Add Button */}
 
-            <Button
+            <Button  className="bg-blue-600 hover:bg-gray-400 px-5 py-2 rounded-lg"
               onClick={() =>
                 setOpenModal(true)
               }

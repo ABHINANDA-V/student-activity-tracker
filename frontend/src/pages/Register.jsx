@@ -53,7 +53,7 @@ function Register() {
 
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
 
-        <h1 className="text-3xl font-bold text-center mb-2">
+        <h1 className="text-3xl font-bold text-center mb-2 text-blue-600">
           Create Account
         </h1>
 
@@ -91,7 +91,7 @@ function Register() {
           />
 
           <button
-            className="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg transition"
+            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold  p-3 rounded-lg transition"
           >
             Register
           </button>
